@@ -55,7 +55,7 @@
         function getRegtoken() {
             messaging.getToken().then((currentToken) => {
                 if (currentToken) {
-                    console.log('currentToken');
+                    //console.log('currentToken');
                     console.log(currentToken);
                     setTokenSentToServer(true);
                     saveToken(currentToken)
@@ -72,9 +72,12 @@
         }
         function setTokenSentToServer(sent) {
             window.localStorage.setItem('sentToServer', sent ? 1 : 0);
-        }
+        }      
         function isTokenSentToServer() {
             return window.localStorage.getItem('sentToServer') === '1';
+        }
+        function saveToken(token) {
+            console.log(token);
         }
         messaging.onMessage(function (payload) {
             console.log('Message received. ', payload);
