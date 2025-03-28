@@ -1,97 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="styles.css">   
+    <link rel="manifest" href="manifest.json">
+</head>
   <body>
-  <h1>Hi Kalpesh</h1>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src='https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js' type="text/javascript"></script>
+  <header>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<script src='https://www.gstatic.com/firebasejs/7.4.0/firebase-messaging.js' type="text/javascript"></script>
+    <main>
+        <section id="home" class="hero">
+            <h2>Your Journey Begins Here</h2>
+            <p>Explore our services and discover what we can do for you.</p>
+            <a href="#services" class="btn">Learn More</a>
+        </section>
 
-<script>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>We are dedicated to providing the best services to our clients. Our team is experienced and passionate about what we do.</p>
+        </section>
 
-    $(function () {
+        <section id="services">
+            <h2>Our Services</h2>
+            <div class="service">
+                <h3>Service One</h3>
+                <p>Description of service one.</p>
+            </div>
+            <div class="service">
+                <h3>Service Two</h3>
+                <p>Description of service two.</p>
+            </div>
+            <div class="service">
+                <h3>Service Three</h3>
+                <p>Description of service three.</p>
+            </div>
+        </section>
 
-        var token = null;
-        //var firebaseConfig = {
-        //    apiKey: "AIzaSyBHD0FfT6VBL4kje_dqEX0f2Y3OBzMUybk",
-        //    authDomain: "asp-mvc-with-android.firebaseapp.com",
-        //    databaseURL: "https://asp-mvc-with-android.firebaseio.com",
-        //    projectId: "asp-mvc-with-android",
-        //    storageBucket: "asp-mvc-with-android.appspot.com",
-        //    messagingSenderId: "371396359158",
-        //    appId: "1:371396359158:web:2d741d56fd5bfb7089cdd7"
-        //};
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyApTSIEAKSpRY-zO7sMihzW-rR4OkFgkpY",
-            authDomain: "myeziwayaccount-5fb4d.firebaseapp.com",
-            projectId: "myeziwayaccount-5fb4d",
-            storageBucket: "myeziwayaccount-5fb4d.firebasestorage.app",
-            messagingSenderId: "701753208643",
-            appId: "1:701753208643:web:3d988259f2f922d15109f6",
-            measurementId: "G-D1S1Q413FT"
-        };
-        firebase.initializeApp(firebaseConfig);
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>If you have any questions, feel free to reach out!</p>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+    </main>
 
-        const messaging = firebase.messaging();
+    <footer>
+        <p>&copy; 2023 My Enhanced Static Website. All rights reserved.</p>
+    </footer>
+    
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!--<script src='https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js' type="text/javascript"></script>-->
+    <!--<script src='https://www.gstatic.com/firebasejs/7.4.0/firebase-messaging.js' type="text/javascript"></script>-->
+    
+    <script type="text/javascript">
 
-        messaging.requestPermission()
-            .then(function () {
-                console.log("granted");
-                if (isTokenSentToServer()) {
-                    console.log("already granted");
-                } else {
-                    getRegtoken();
-                }
-            })
-            .catch(function (err) {
-                console.log('Error Occurred.' + err)
-            });
-
-
-        function getRegtoken() {
-            messaging.getToken().then((currentToken) => {
-                if (currentToken) {
-                    //console.log('currentToken');
-                    console.log(currentToken);
-                    setTokenSentToServer(true);
-                    saveToken(currentToken)
-                    //   updateUIForPushEnabled(currentToken);
-                } else {
-                    console.log('No Instance ID token available. Request permission to generate one.');
-                    setTokenSentToServer(false);
-                }
-            }).catch((err) => {
-                console.log('An error occurred while retrieving token. ', err);
-                setTokenSentToServer(false);
-            });
-
-        }
-        function setTokenSentToServer(sent) {
-            window.localStorage.setItem('sentToServer', sent ? 1 : 0);
-        }      
-        function isTokenSentToServer() {
-            return window.localStorage.getItem('sentToServer') === '1';
-        }
-        function saveToken(token) {
-            console.log(token);
-        }
-        messaging.onMessage(function (payload) {
-            console.log('Message received. ', payload);
-
-            notificationTitle = payload.notification.title;
-            notificationOptions = {
-                body: payload.notification.body,
-                icon: payload.notification.icon
-            };
-
-            var notification = new Notification(notificationTitle, notificationOptions);
-
-        });
-
-    });
-
-
-</script>
+    </script>
   </body>
 </html>
