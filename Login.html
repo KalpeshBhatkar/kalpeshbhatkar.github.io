@@ -57,6 +57,19 @@
             text-align: center;
             margin-top: 10px;
         }
+
+        #PWAinstallButton {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        
+        #PWAinstallButton:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -73,11 +86,30 @@
             <input type="password" id="password" name="password" required>
         </div>
         <button type="submit">Login</button>
+        <button id="PWAinstallButton" hidden>Add to Home Screen</button>
         <div class="error-message" id="error-message"></div>
     </form>
 </div>
 
-<script>
+<script type="text/javascript">
+
+    let installPrompt;
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault(); // Prevent the default install prompt
+        installPrompt = event; // Store the event for later use
+        document.getElementById('installButton').hidden = false; // Show the install button
+    });
+    
+    document.getElementById('installButton').addEventListener('click', async () => {
+        if (!installPrompt) return; // Check if the prompt is available
+        installPrompt.prompt(); // Show the install prompt
+        const { outcome } = await installPrompt.userChoice; // Wait for the user's choice
+        console.log(`Install prompt was: ${outcome}`); // Log the outcome
+        installPrompt = null; // Clear the prompt
+        document.getElementById('installButton').hidden = true; // Hide the button again
+    });
+    
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the form from submitting normally
 
