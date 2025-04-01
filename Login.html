@@ -98,16 +98,16 @@
     window.addEventListener('beforeinstallprompt', (event) => {
         event.preventDefault(); // Prevent the default install prompt
         installPrompt = event; // Store the event for later use
-        document.getElementById('installButton').hidden = false; // Show the install button
+        document.getElementById('PWAinstallButton').hidden = false; // Show the install button
     });
     
-    document.getElementById('installButton').addEventListener('click', async () => {
+    document.getElementById('PWAinstallButton').addEventListener('click', async () => {
         if (!installPrompt) return; // Check if the prompt is available
         installPrompt.prompt(); // Show the install prompt
         const { outcome } = await installPrompt.userChoice; // Wait for the user's choice
         console.log(`Install prompt was: ${outcome}`); // Log the outcome
         installPrompt = null; // Clear the prompt
-        document.getElementById('installButton').hidden = true; // Hide the button again
+        document.getElementById('PWAinstallButton').hidden = true; // Hide the button again
     });
     
     document.getElementById('loginForm').addEventListener('submit', function(event) {
