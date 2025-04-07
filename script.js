@@ -2,12 +2,18 @@
 navigator.serviceWorker.register("service-worker.js");
 
 window.addEventListener("DOMContentLoaded", async event => {
+  // Log launch display mode to analytics
+  console.log('DISPLAY_MODE_LAUNCH:', getPWADisplayMode());
+  
   if ('BeforeInstallPromptEvent' in window) {
     showResult("⏳ BeforeInstallPromptEvent supported but not fired yet");
   } else {
     showResult("❌ BeforeInstallPromptEvent NOT supported");    
   }
+  
   document.querySelector("#install").addEventListener("click", installApp);
+
+  
 });
 
 let deferredPrompt;
@@ -53,4 +59,21 @@ function showResult(text, append=false) {
   } else {
      document.querySelector("output").innerHTML = text;    
   }
+}
+
+function getPWADisplayMode() {
+  if (document.referrer.startsWith('android-app://'))
+    return 'twa';
+  if (window.matchMedia('(display-mode: browser)').matches)
+    return 'browser';
+  if (window.matchMedia('(display-mode: standalone)').matches)
+    return 'standalone';
+  if (window.matchMedia('(display-mode: minimal-ui)').matches)
+    return 'minimal-ui';
+  if (window.matchMedia('(display-mode: fullscreen)').matches)
+    return 'fullscreen';
+  if (window.matchMedia('(display-mode: window-controls-overlay)').matches)
+    return 'window-controls-overlay';
+
+  return 'unknown';
 }
