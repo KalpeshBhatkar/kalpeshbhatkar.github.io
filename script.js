@@ -13,6 +13,15 @@ window.addEventListener("DOMContentLoaded", async event => {
   
   document.querySelector("#install").addEventListener("click", installApp);
 
+  if(getPWADisplayMode() == 'standalone')
+  {
+    document.querySelector("#divinstall").style.display = "none";
+  }
+  else
+  {
+    document.querySelector("#divinstall").style.display = "block";
+  }
+
   
 });
 
